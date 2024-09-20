@@ -15,7 +15,7 @@ import { Cart_Items2 } from "../component/Cart_Items2";
 //2. доробити пагінацію на сторінці Shop! YES
 //2. доробити cart меню YES
 //3. CART (quantity...) YES
-//4. CHECKOUT
+//4. CHECKOUT YES
 //5. COMPARE
 // під учити reduce, some, find, filter!!!!!!!!!!!!!!
 

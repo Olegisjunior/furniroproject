@@ -5,26 +5,28 @@ type QuantityItem = {
   quan: number;
 };
 
-interface color {
+interface SelectedColor {
   productId: number;
-  color: string | undefined;
+  color: string;
 }
 
 export interface ICheckoutItems {
   items: number[];
-  quantity: Array<QuantityItem>;
-  color: any;
+  quantity: QuantityItem[];
+  color: SelectedColor[];
   totalPrice: number;
 }
 
+const initialState: ICheckoutItems = {
+  items: [],
+  quantity: [],
+  color: [],
+  totalPrice: 0,
+};
+
 const checkoutSlice = createSlice({
   name: "checkout",
-  initialState: {
-    items: [0],
-    quantity: [{} as QuantityItem],
-    color: [{} as color],
-    totalPrice: 0,
-  },
+  initialState,
   reducers: {
     setCheckoutData(
       state: ICheckoutItems,

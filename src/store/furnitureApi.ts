@@ -9,7 +9,7 @@ export interface IFurniture {
   gallery: string[];
   gallery_second_color?: string[];
   gallery_third_color?: string[];
-  colors?: string[];
+  colors: string[];
   sizes?: string[];
   size_photo?: string[];
   prod_info: {
