@@ -175,9 +175,13 @@ export const Navigation = () => {
                 >
                   Checkout
                 </Link>
-                <button className="font-medium py-2 px-6 border border-solid border-[#000000] rounded-full">
+                <Link
+                  to="compare"
+                  onClick={closeModal}
+                  className="font-medium py-2 px-6 border border-solid border-[#000000] rounded-full"
+                >
                   Comparison
-                </button>
+                </Link>
               </div>
             </aside>
           </div>

@@ -16,7 +16,7 @@ type QuantityItem = {
 
 interface SelectedColor {
   productId: number;
-  selectedColor: string | undefined;
+  color: string;
 }
 
 export const CartPage = () => {
@@ -27,8 +27,6 @@ export const CartPage = () => {
   const [InpVal, setInpVal] = useState<string>("");
   const [success, setSuccess] = useState(false);
   const [selectedColors, setSelectedColors] = useState<SelectedColor[]>([]);
-
-  console.log(selectedColors);
 
   const dispatch = useDispatch();
 
@@ -55,7 +53,7 @@ export const CartPage = () => {
       setSelectedColors(
         data.map((product) => ({
           productId: product.id,
-          selectedColor: product.gallery?.[0],
+          color: product.colors[0],
         }))
       );
     }
@@ -108,10 +106,10 @@ export const CartPage = () => {
     setInpVal(e);
   };
 
-  const CheckoutData = (color: any, id: number) => {
+  const CheckoutData = () => {
     dispatch(
       setCheckoutData({
-        color: { selectedColor: color, productId: id },
+        color: selectedColors.filter((i) => favorites.includes(i.productId)),
         items: favorites,
         quantity: quantity,
         totalPrice: finalPrice(),
@@ -122,24 +120,7 @@ export const CartPage = () => {
   const ColorChange = (color: any, id: number) => {
     setSelectedColors((prev) =>
       prev.map((item) =>
-        item.productId === id
-          ? {
-              ...item,
-              selectedColor: (() => {
-                const product = data?.find((product) => product.id === id);
-                if (!product) return undefined;
-
-                if (color === product.colors?.[0]) {
-                  return product.gallery?.[0];
-                } else if (color === product.colors?.[1]) {
-                  return product.gallery_second_color?.[0];
-                } else if (color === product.colors?.[2]) {
-                  return product.gallery_third_color?.[0];
-                }
-                return product.gallery?.[0];
-              })(),
-            }
-          : item
+        item.productId === id ? { ...item, color: color } : item
       )
     );
   };
@@ -148,14 +129,31 @@ export const CartPage = () => {
     ?.filter((item) => favorites.includes(item.id))
     .map((i) => {
       const itemQuantity = quantity.find((item) => item.id === i.id)?.quan || 1;
-      const selectedColor = selectedColors.find(
-        (item) => item.productId === i.id
-      )?.selectedColor;
+      const ImageChange = (i: any) => {
+        const selectedProduct = selectedColors.find(
+          (pr) => pr.productId === i.id
+        );
+        if (!selectedProduct) return i.gallery[0];
+
+        if (selectedProduct.color === i.colors[0]) {
+          return i.gallery[0];
+        } else if (selectedProduct.color === i.colors[1]) {
+          return i.gallery_second_color
+            ? i.gallery_second_color[0]
+            : i.gallery[0];
+        } else if (selectedProduct.color === i.colors[2]) {
+          return i.gallery_third_color
+            ? i.gallery_third_color[0]
+            : i.gallery[0];
+        }
+
+        return i.gallery[0];
+      };
       return (
         <>
           <div className="flex justify-around items-center">
             <div className="flex gap-3">
-              <img src={selectedColor} className="h-[100px] rounded-md" />
+              <img src={ImageChange(i)} className="h-[100px] rounded-md" />
               <div className="flex flex-col justify-center items-center">
                 <p className="truncate w-[200px] text-xl font-semibold">
                   {i.name}
