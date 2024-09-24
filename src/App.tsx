@@ -9,6 +9,7 @@ import { FooterSection } from "./Pages/FooterSection";
 import { CartPage } from "./Pages/CartPage";
 import { Checkout } from "./Pages/Checkout";
 import { Compare } from "./Pages/Compare";
+import { UserProfile } from "./Pages/UserProfile";
 
 export const App = () => {
   return (
@@ -23,6 +24,7 @@ export const App = () => {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/compare" element={<Compare />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
       <FooterSection />
     </>

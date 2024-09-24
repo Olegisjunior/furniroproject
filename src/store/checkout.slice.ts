@@ -11,7 +11,7 @@ interface SelectedColor {
 }
 
 export interface ICheckoutItems {
-  items: number[];
+  items: Array<{ id: number; quantity: number }>;
   quantity: QuantityItem[];
   color: SelectedColor[];
   totalPrice: number;

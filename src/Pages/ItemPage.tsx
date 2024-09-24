@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import {
+  IFurniture,
   useGetFurnitureByIdQuery,
   useGetFurnituresQuery,
 } from "../store/furnitureApi";
@@ -9,14 +10,18 @@ import { useEffect, useState } from "react";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
 import { Cart_Items2 } from "../component/Cart_Items2";
+import { useActions } from "../hooks/Actions";
 
-/// to do
-//1. зробити сторінку кожного товару, доробити всюди характеристики товарів  YES
-//2. доробити пагінацію на сторінці Shop! YES
-//2. доробити cart меню YES
-//3. CART (quantity...) YES
-//4. CHECKOUT YES
-//5. COMPARE
+///////// to do
+// like yes
+//itemPage quantity -> cart YES
+// profile YES
+// переробити всі банери як в profile
+// search
+// about page
+// contact page
+// ts tipiation
+//refactoring code
 // під учити reduce, some, find, filter!!!!!!!!!!!!!!
 
 type Image = {
@@ -26,15 +31,16 @@ type Image = {
 
 export const ItemPage = () => {
   const { productId } = useParams();
-  //@ts-ignore
+  //@ts-expect-error
   const { data, isLoading, error } = useGetFurnitureByIdQuery(productId);
-  //@ts-ignore
+  const { addFavorite } = useActions();
+  const { addCompare } = useActions();
   const {
     data: data2,
     isLoading: isLoading2,
     error: error2,
   } = useGetFurnituresQuery();
-  const [isActive, setIsActive] = useState(null);
+  const [isActive, setIsActive] = useState(0);
   const [isActive2, setIsActive2] = useState(0);
   const [counter, setCounter] = useState(1);
   const [isColor, setIsColor] = useState(data?.colors?.[0]);
@@ -79,10 +85,24 @@ export const ItemPage = () => {
     );
   }
 
-  const handleClick = (index: any) => {
+  const AddToFav = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
+    event.preventDefault();
+
+    addFavorite({ id: id, quantity: counter });
+  };
+
+  const AddToComp = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ) => {
+    event.preventDefault();
+    addCompare(id);
+  };
+
+  const handleClick = (index: number) => {
     setIsActive(index);
   };
-  const handleClickColor = (color: any) => {
+  const handleClickColor = (color: string) => {
     setIsColor(color);
   };
 
@@ -92,7 +112,7 @@ export const ItemPage = () => {
   const decrement = () => {
     if (counter >= 2) setCounter(counter - 1);
     else if (counter === 1) {
-      null;
+      return null;
     }
   };
 
@@ -102,7 +122,7 @@ export const ItemPage = () => {
 
   const desc_buttons = ["Description", "Additional Information"];
 
-  const handleClick2 = (index: any) => {
+  const handleClick2 = (index: number) => {
     setIsActive2(index);
   };
   return (
@@ -129,7 +149,6 @@ export const ItemPage = () => {
           <div className="flex gap-5  w-[50%]">
             <div className="gallery flex flex-col gap-5">
               <ImageGallery
-                //@ts-ignore
                 items={images}
                 showNav={false}
                 thumbnailPosition={"left"}
@@ -207,12 +226,22 @@ export const ItemPage = () => {
                 <p>{counter}</p>
                 <button onClick={increment}>+</button>
               </div>
-              <button className="w-[215px] h-[65px] flex justify-center items-center border-solid border-[2px] border-black rounded-md gap-8">
-                Add To Cart
-              </button>
-              <button className="w-[215px] h-[65px] flex justify-center items-center border-solid border-[2px] border-black rounded-md gap-8">
-                Add To Compare
-              </button>
+              {data && (
+                <>
+                  <button
+                    onClick={(e) => AddToFav(e, data.id)}
+                    className="w-[215px] h-[65px] flex justify-center items-center border-solid border-[2px] border-black rounded-md gap-8"
+                  >
+                    Add To Cart
+                  </button>
+                  <button
+                    onClick={(e) => AddToComp(e, data.id)}
+                    className="w-[215px] h-[65px] flex justify-center items-center border-solid border-[2px] border-black rounded-md gap-8"
+                  >
+                    Add To Compare
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -341,7 +370,7 @@ export const ItemPage = () => {
 
       <hr className="w-[full] h-[2px] bg-[#3a3a3a] mb-[60px] mt-[60px]" />
 
-      <div className="4cards flex justify-between items-center flex-col h-[52vh] mb-[60px]">
+      <div className="4cards flex justify-between items-center flex-col h-[52vh] mb-[60px] gap-y-7">
         <span className="text-3xl font-bold">Related Product</span>
         <div className="grid w-[85%] grid-cols-[repeat(auto-fit,minmax(300px,1fr))]  gap-x-10 gap-y-10  ">
           {error2 ? (
@@ -350,7 +379,7 @@ export const ItemPage = () => {
             <p>Loading...</p>
           ) : (
             data2 &&
-            data2.slice(0, 4).map((item: any) => {
+            data2.slice(0, 4).map((item: IFurniture) => {
               return (
                 <Cart_Items2
                   img={item.img}

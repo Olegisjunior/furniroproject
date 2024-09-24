@@ -23,10 +23,28 @@ export const Cart_Items: FC<Cart_Items_Props> = ({
   id,
 }) => {
   const { addFavorite } = useActions();
+  const { addCompare } = useActions();
+  const { addLike } = useActions();
 
   const AddToFav = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
     event.preventDefault();
-    addFavorite(id);
+    addFavorite({ id: id, quantity: 1 });
+  };
+
+  const AddToComp = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ) => {
+    event.preventDefault();
+    addCompare(id);
+  };
+
+  const AddToLike = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ) => {
+    event?.preventDefault();
+    addLike(id);
   };
 
   const calc = (price: number) => {
@@ -55,10 +73,16 @@ export const Cart_Items: FC<Cart_Items_Props> = ({
             <button className="text-white bg-none flex items-center justify-center gap-1">
               <img src={share} /> Share
             </button>
-            <button className="text-white bg-none flex items-center justify-center gap-1">
+            <button
+              onClick={(e) => AddToComp(e, id)}
+              className="text-white bg-none flex items-center justify-center gap-1"
+            >
               <img src={compare} /> Compare
             </button>
-            <button className="text-white bg-none flex  items-center justify-center gap-1">
+            <button
+              onClick={(e) => AddToLike(e, id)}
+              className="text-white bg-none flex  items-center justify-center gap-1"
+            >
               <img src={like} /> Like
             </button>
           </div>

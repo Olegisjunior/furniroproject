@@ -1,0 +1,17 @@
+.CUSTOM_SCROLL {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #b9b9b9;
+  }
+}
