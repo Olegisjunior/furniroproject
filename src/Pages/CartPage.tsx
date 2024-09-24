@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import banner from "../../assets/banner.jpg";
 import { useAppSelector } from "../hooks/redux";
-import { useGetFurnituresQuery } from "../store/furnitureApi";
+import { IFurniture, useGetFurnituresQuery } from "../store/furnitureApi";
 import { useEffect, useState } from "react";
 import close from "../../assets/closeImg.png";
 import { useActions } from "../hooks/Actions";
@@ -11,7 +11,7 @@ import { setCheckoutData } from "../store/checkout.slice";
 
 type QuantityItem = {
   id: number;
-  quan: number;
+  quantity: number;
 };
 
 interface SelectedColor {
@@ -21,33 +21,33 @@ interface SelectedColor {
 
 export const CartPage = () => {
   const { favorites } = useAppSelector((state) => state.furniture);
-  const { removeFavorite } = useActions();
+  const { removeFavorite, updateFavoriteQuantity } = useActions();
   const [quantity, setQuantity] = useState<QuantityItem[]>([]);
   const { data } = useGetFurnituresQuery();
   const [InpVal, setInpVal] = useState<string>("");
   const [success, setSuccess] = useState(false);
   const [selectedColors, setSelectedColors] = useState<SelectedColor[]>([]);
+  const [PriceValue, setPriceValue] = useState(0);
 
   const dispatch = useDispatch();
 
   const finalPrice = () => {
     let value = 0;
     if (success) {
-      value = totalPrice + 400 - totalPrice * 0.05;
+      value = PriceValue + 400 - PriceValue * 0.05;
     } else {
-      value = totalPrice + 400;
+      value = PriceValue + 400;
     }
     return value;
   };
 
   useEffect(() => {
-    if (data) {
-      const initialQuantities = data
-        .filter((item) => favorites.includes(item.id))
-        .map((item) => ({ id: item.id, quan: 1 }));
+    const initialQuantities = favorites.map((item) => ({
+      id: item.id,
+      quantity: item.quantity,
+    }));
 
-      setQuantity(initialQuantities);
-    }
+    setQuantity(initialQuantities);
 
     if (data && data.length > 0) {
       setSelectedColors(
@@ -60,14 +60,7 @@ export const CartPage = () => {
   }, [data, favorites]);
 
   const handleChange = (e: string, idItem: number) => {
-    const newQuantity = quantity.map((items) => {
-      if (items.id === idItem) {
-        return { ...items, quan: Number(e) };
-      }
-      return items;
-    });
-
-    setQuantity(newQuantity);
+    dispatch(updateFavoriteQuantity({ id: idItem, quantity: Number(e) }));
   };
 
   const calc = (price: number) => {
@@ -82,18 +75,30 @@ export const CartPage = () => {
     removeFavorite(id);
   };
 
-  const totalQuantity = quantity.reduce((total, item) => total + item.quan, 0);
+  const totalQuantity = quantity.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
-  const totalPrice = quantity.reduce((total, item) => {
-    const ItemData = data?.find((i) => i.id === item.id);
+  useEffect(() => {
+    console.log("Quantity changed:", quantity);
 
-    const PriceValue = ItemData
-      ? ItemData.discount
-        ? total + calc(ItemData.price) * item.quan
-        : total + ItemData.price * item.quan
-      : total;
-    return PriceValue;
-  }, 0);
+    const totalPrice = quantity.reduce((total, item) => {
+      const ItemData = data?.find((i) => i.id === item.id);
+      const quanItems = favorites.find((f) => f.id === item.id)?.quantity || 1;
+
+      if (!ItemData) return total;
+
+      const itemPrice = ItemData.price * quanItems;
+      const finalPrice = ItemData.discount
+        ? calc(ItemData.price) * quanItems
+        : itemPrice;
+
+      return total + finalPrice;
+    }, 0);
+
+    setPriceValue(totalPrice);
+  }, [favorites, data, quantity]);
 
   const SubmitInp = () => {
     if (InpVal === "FR5COUPONE") {
@@ -102,22 +107,23 @@ export const CartPage = () => {
     } else setSuccess(false);
   };
 
-  const handleInp = (e: any) => {
+  const handleInp = (e: string) => {
     setInpVal(e);
   };
 
   const CheckoutData = () => {
     dispatch(
       setCheckoutData({
-        color: selectedColors.filter((i) => favorites.includes(i.productId)),
+        color: selectedColors.filter((i) =>
+          favorites.find((f) => f.id === i.productId)
+        ),
         items: favorites,
-        quantity: quantity,
         totalPrice: finalPrice(),
       })
     );
   };
 
-  const ColorChange = (color: any, id: number) => {
+  const ColorChange = (color: string, id: number) => {
     setSelectedColors((prev) =>
       prev.map((item) =>
         item.productId === id ? { ...item, color: color } : item
@@ -126,10 +132,11 @@ export const CartPage = () => {
   };
 
   const favItems = data
-    ?.filter((item) => favorites.includes(item.id))
+    ?.filter((item) => favorites.find((f) => f.id === item.id))
     .map((i) => {
-      const itemQuantity = quantity.find((item) => item.id === i.id)?.quan || 1;
-      const ImageChange = (i: any) => {
+      const itemQuantity =
+        quantity.find((item) => item.id === i.id)?.quantity || 1;
+      const ImageChange = (i: IFurniture) => {
         const selectedProduct = selectedColors.find(
           (pr) => pr.productId === i.id
         );
@@ -164,7 +171,7 @@ export const CartPage = () => {
             <p>{i.discount ? calc(i.price) : i.price}₴</p>
             <input
               type="number"
-              defaultValue={1}
+              defaultValue={favorites.find((f) => f.id === i.id)?.quantity || 1}
               min={1}
               onChange={(event) => handleChange(event.target.value, i.id)}
               className="w-[3rem] h-[1rem] text-center  outline-none py-3 border border-solid rounded-xl"
@@ -301,8 +308,8 @@ export const CartPage = () => {
               <p className="text-l font-semibold">Total Price</p>
               <p className="text-l font-semibold">
                 {success
-                  ? totalPrice + 400 - totalPrice * 0.05
-                  : totalPrice + 400}
+                  ? PriceValue + 400 - PriceValue * 0.05
+                  : PriceValue + 400}
                 ₴
               </p>
             </div>
@@ -313,7 +320,6 @@ export const CartPage = () => {
             </Link>
             <button
               className={`rounded-[2rem] p-3 bg-[#b88e2f] hover:bg-[#a58029] text-[#fff] font-semibold `}
-              //@ts-ignore
               onClick={CheckoutData}
             >
               {favorites.length === 0 ? (

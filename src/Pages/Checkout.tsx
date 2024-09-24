@@ -441,9 +441,9 @@ export const Checkout = () => {
               </div>
               {data &&
                 data
-                  .filter((d) => checkoutState.items.includes(d.id))
+                  .filter((d) => checkoutState.items.find((f) => f.id === d.id))
                   .map((i) => {
-                    let dataColor = checkoutState.color.find(
+                    const dataColor = checkoutState.color.find(
                       (we) => we.productId === i.id
                     )?.color;
 
@@ -457,9 +457,8 @@ export const Checkout = () => {
                         <span>x</span>
                         <p>
                           {
-                            checkoutState.quantity.find(
-                              (item) => item.id === i.id
-                            )?.quan
+                            checkoutState.items.find((f) => f.id === i.id)
+                              ?.quantity
                           }
                         </p>
                       </div>

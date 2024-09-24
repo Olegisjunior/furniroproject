@@ -21,6 +21,7 @@ export interface IFurniture {
     Seating_Capacity?: string;
     Finish?: string;
     Model?: string;
+    Warranty?: string;
   };
 }
 
