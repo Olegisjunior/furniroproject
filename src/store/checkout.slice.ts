@@ -10,11 +10,17 @@ interface SelectedColor {
   color: string;
 }
 
+type SizeItem = {
+  id: number;
+  size: string;
+};
+
 export interface ICheckoutItems {
   items: Array<{ id: number; quantity: number }>;
   quantity: QuantityItem[];
   color: SelectedColor[];
   totalPrice: number;
+  size: SizeItem[];
 }
 
 const initialState: ICheckoutItems = {
@@ -22,6 +28,7 @@ const initialState: ICheckoutItems = {
   quantity: [],
   color: [],
   totalPrice: 0,
+  size: [],
 };
 
 const checkoutSlice = createSlice({

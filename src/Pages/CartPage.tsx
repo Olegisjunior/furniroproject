@@ -1,17 +1,20 @@
 import { Link } from "react-router-dom";
 import banner from "../../assets/banner.jpg";
 import { useAppSelector } from "../hooks/redux";
-import { IFurniture, useGetFurnituresQuery } from "../store/furnitureApi";
+import { useGetFurnituresQuery } from "../store/furnitureApi";
 import { useEffect, useState } from "react";
-import close from "../../assets/closeImg.png";
-import { useActions } from "../hooks/Actions";
 import { useDispatch } from "react-redux";
-
 import { setCheckoutData } from "../store/checkout.slice";
+import { CartFavoritesItems } from "../component/CartFavoritesItems";
 
 type QuantityItem = {
   id: number;
   quantity: number;
+};
+
+type SizeItem = {
+  id: number;
+  size: string;
 };
 
 interface SelectedColor {
@@ -21,8 +24,8 @@ interface SelectedColor {
 
 export const CartPage = () => {
   const { favorites } = useAppSelector((state) => state.furniture);
-  const { removeFavorite, updateFavoriteQuantity } = useActions();
   const [quantity, setQuantity] = useState<QuantityItem[]>([]);
+  const [size, setSize] = useState<SizeItem[]>([]);
   const { data } = useGetFurnituresQuery();
   const [InpVal, setInpVal] = useState<string>("");
   const [success, setSuccess] = useState(false);
@@ -59,20 +62,8 @@ export const CartPage = () => {
     }
   }, [data, favorites]);
 
-  const handleChange = (e: string, idItem: number) => {
-    dispatch(updateFavoriteQuantity({ id: idItem, quantity: Number(e) }));
-  };
-
   const calc = (price: number) => {
     return price - price * 0.2;
-  };
-
-  const RemoveFav = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    id: number
-  ) => {
-    event.preventDefault();
-    removeFavorite(id);
   };
 
   const totalQuantity = quantity.reduce(
@@ -81,8 +72,6 @@ export const CartPage = () => {
   );
 
   useEffect(() => {
-    console.log("Quantity changed:", quantity);
-
     const totalPrice = quantity.reduce((total, item) => {
       const ItemData = data?.find((i) => i.id === item.id);
       const quanItems = favorites.find((f) => f.id === item.id)?.quantity || 1;
@@ -119,94 +108,12 @@ export const CartPage = () => {
         ),
         items: favorites,
         totalPrice: finalPrice(),
+        size: size,
       })
     );
   };
 
-  const ColorChange = (color: string, id: number) => {
-    setSelectedColors((prev) =>
-      prev.map((item) =>
-        item.productId === id ? { ...item, color: color } : item
-      )
-    );
-  };
-
-  const favItems = data
-    ?.filter((item) => favorites.find((f) => f.id === item.id))
-    .map((i) => {
-      const itemQuantity =
-        quantity.find((item) => item.id === i.id)?.quantity || 1;
-      const ImageChange = (i: IFurniture) => {
-        const selectedProduct = selectedColors.find(
-          (pr) => pr.productId === i.id
-        );
-        if (!selectedProduct) return i.gallery[0];
-
-        if (selectedProduct.color === i.colors[0]) {
-          return i.gallery[0];
-        } else if (selectedProduct.color === i.colors[1]) {
-          return i.gallery_second_color
-            ? i.gallery_second_color[0]
-            : i.gallery[0];
-        } else if (selectedProduct.color === i.colors[2]) {
-          return i.gallery_third_color
-            ? i.gallery_third_color[0]
-            : i.gallery[0];
-        }
-
-        return i.gallery[0];
-      };
-      return (
-        <>
-          <div className="flex justify-around items-center">
-            <div className="flex gap-3">
-              <img src={ImageChange(i)} className="h-[100px] rounded-md" />
-              <div className="flex flex-col justify-center items-center">
-                <p className="truncate w-[200px] text-xl font-semibold">
-                  {i.name}
-                </p>
-                <p className="truncate w-[200px]">{i.desc}</p>
-              </div>
-            </div>
-            <p>{i.discount ? calc(i.price) : i.price}₴</p>
-            <input
-              type="number"
-              defaultValue={favorites.find((f) => f.id === i.id)?.quantity || 1}
-              min={1}
-              onChange={(event) => handleChange(event.target.value, i.id)}
-              className="w-[3rem] h-[1rem] text-center  outline-none py-3 border border-solid rounded-xl"
-            />
-            <select
-              className="w-[50px] h-[20px]"
-              onChange={(e) => ColorChange(e.target.value, i.id)}
-              defaultValue={i.colors && i.colors[0]}
-            >
-              {i.colors?.map((color, index) => {
-                return (
-                  <option
-                    key={index}
-                    style={{ backgroundColor: color }}
-                    value={color}
-                  >
-                    {index + 1}
-                  </option>
-                );
-              })}
-            </select>
-            <p>
-              {i.discount
-                ? calc(i.price) * itemQuantity
-                : i.price * itemQuantity}
-              ₴
-            </p>
-            <button onClick={(event) => RemoveFav(event, i.id)}>
-              <img src={close} className="h-[20px]" />
-            </button>
-          </div>
-          <hr className="w-full my-3 h-[2px] bg-[#797979] opacity-20" />
-        </>
-      );
-    });
+  // size -> checkData -> checkout
 
   return (
     <>
@@ -242,12 +149,15 @@ export const CartPage = () => {
             <h1 className="text-xl font-bold">{favorites.length} items</h1>
           </div>
           <div className="h-full ">
-            <div className="flex gap-10 pl-10 pr-10">
-              <p className="w-[45%]">Product Details</p>
-              <p className="w-[10%]">Price</p>
-              <p className="w-[12%]">Quantity</p>
-              <p className="w-[10%]">color</p>
-              <p className="w-[10%]">Total</p>
+            <div className="flex justify-around pr-16">
+              <div className="w-[290px]">
+                <p>Product Details</p>
+              </div>
+              <p className=" ">Price</p>
+              <p className=" ">Amount</p>
+              <p className=" ">Size</p>
+              <p className=" ">color</p>
+              <p className=" ">Total</p>
             </div>
             <hr className=" my-3 w-full h-[2px] bg-[#797979] opacity-30" />
             {favorites.length === 0 && (
@@ -255,7 +165,13 @@ export const CartPage = () => {
                 No items yet
               </div>
             )}
-            <div>{favItems}</div>
+            <CartFavoritesItems
+              data={data}
+              quantity={quantity}
+              selectedColors={selectedColors}
+              setSelectedColors={setSelectedColors}
+              setSize={setSize}
+            />
           </div>
         </div>
         <div className="RightSide w-[30%] bg-gray-100 h-fit">
@@ -264,7 +180,7 @@ export const CartPage = () => {
           </h1>
           <div className="flex justify-center items-center gap-2 my-5">
             <label>
-              Coupon{"   "}
+              Coupon
               <input
                 type="text"
                 className={`rounded-xl px-2 text-center ${

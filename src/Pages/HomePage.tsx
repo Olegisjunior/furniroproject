@@ -2,26 +2,10 @@ import image from "../../assets/bg1.png";
 import cartImage from "../../assets/img1.png";
 import cartImage2 from "../../assets/img2.png";
 import cartImage3 from "../../assets/img3.png";
-
-import cardImg2 from "../../assets/cardImg2.png";
-import cardImg3 from "../../assets/cardImg3.png";
-import Vector1 from "../../assets/Vector1.png";
-import collage1 from "../../assets/collage1.png";
-import collage2 from "../../assets/collage2.png";
-import collage3 from "../../assets/collage3.png";
-import collage4 from "../../assets/collage4.png";
-import collage5 from "../../assets/collage5.png";
-import collage6 from "../../assets/collage6.png";
-import collage7 from "../../assets/collage7.png";
-import collage8 from "../../assets/collage8.png";
-
-import { Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import { ItemList2 } from "../component/ItemList2";
 import { useState } from "react";
+import { HomePageSwiper } from "../component/HomePageSwiper";
+import { Collage } from "../component/Collage";
 
 export const HomePage = () => {
   const [visibleItems, setVisibleItems] = useState(4);
@@ -29,6 +13,7 @@ export const HomePage = () => {
   const handlerLoader = () => {
     setVisibleItems((prev) => prev + 4);
   };
+
   return (
     <main className="max-h-[500vh] h-fit">
       <section>
@@ -117,128 +102,10 @@ export const HomePage = () => {
             </button>
           </div>
           <div className="w-[60%] py-10 px-10">
-            <Swiper
-              modules={[Navigation, Pagination]}
-              slidesPerView={2}
-              navigation
-              pagination={{ clickable: true }}
-            >
-              <SwiperSlide>
-                {({ isActive }) => (
-                  <div>
-                    <img
-                      src={cardImg2}
-                      className={
-                        isActive ? `h-[600px] relative` : `h-[500px] relative`
-                      }
-                      alt=""
-                    />
-                    <div>
-                      <div className="w-[220px] h-[130px]  bg-[rgba(255,255,255,0.72)] absolute bottom-[50px] left-[50px] flex flex-col justify-center items-center backdrop-blur-sm ">
-                        <span className="text-[16px] text-[#616161] font-medium">
-                          01 — Bed Room
-                        </span>
-                        <span className="text-[28px] text-[#3a3a3a] font-semibold">
-                          Inner Peace
-                        </span>
-                      </div>
-                      <div className="w-[48px] h-[48px] bg-[#B88E2F] absolute left-[270px] bottom-[50px] flex justify-center items-center">
-                        <img src={Vector1} className="" alt="" />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </SwiperSlide>
-              <SwiperSlide>
-                {({ isActive }) => (
-                  <img
-                    src={cardImg3}
-                    className={isActive ? `h-[600px]` : `h-[500px]`}
-                    alt=""
-                  />
-                )}
-              </SwiperSlide>
-              <SwiperSlide>
-                {({ isActive }) => (
-                  <img
-                    src={cardImg2}
-                    className={isActive ? `h-[600px]` : `h-[500px]`}
-                    alt=""
-                  />
-                )}
-              </SwiperSlide>
-              <SwiperSlide>
-                {({ isActive }) => (
-                  <img
-                    src={cardImg3}
-                    className={isActive ? `h-[600px]` : `h-[500px]`}
-                    alt=""
-                  />
-                )}
-              </SwiperSlide>
-              <SwiperSlide>
-                {({ isActive }) => (
-                  <img
-                    src={cardImg2}
-                    className={isActive ? `h-[600px]` : `h-[500px]`}
-                    alt=""
-                  />
-                )}
-              </SwiperSlide>
-              <SwiperSlide>
-                {({ isActive }) => (
-                  <img
-                    src={cardImg3}
-                    className={isActive ? `h-[600px]` : `h-[500px]`}
-                    alt=""
-                  />
-                )}
-              </SwiperSlide>
-            </Swiper>
+            <HomePageSwiper />
           </div>
         </div>
-        <div className="container relative h-[800px] my-5  mx-auto">
-          <div className="container mx-auto flex flex-col justify-center items-center mt-[20px]">
-            <p className="text-[#616161] text-[20px] font-semibold">
-              Share your setup with
-            </p>
-            <p className="text-[#3a3a3a] text-[40px] font-bold">
-              #FuniroFurniture
-            </p>
-          </div>
-          <img
-            src={collage1}
-            className="absolute h-[full] left-[0px] top-[50px]"
-          />
-          <img
-            src={collage2}
-            className="absolute h-[full] w-[420px] left-[30px] top-[390px]"
-          />
-          <img
-            src={collage3}
-            className="absolute h-[350px] w-[320px] left-[472px] top-[90px]"
-          />
-          <img
-            src={collage4}
-            className="absolute h-[full] w-[350px] left-[810px] top-[348px]"
-          />
-          <img
-            src={collage5}
-            className="absolute h-[360px] left-[1230px] top-[430px]"
-          />
-          <img
-            src={collage6}
-            className="absolute h-[240px] w-[350px] left-[810px] top-[90px]"
-          />
-          <img
-            src={collage7}
-            className="absolute left-[1181px] top-[50px] w-[355px] h-[full] "
-          />
-          <img
-            src={collage8}
-            className="absolute left-[500px] top-[460px]  h-[310px] w-[260px]"
-          />
-        </div>
+        <Collage />
       </section>
     </main>
   );

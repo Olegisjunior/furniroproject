@@ -7,10 +7,14 @@ import Cart from "../../assets/cart.svg";
 import compare from "../../assets/comparesvg.svg";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../hooks/redux";
-import { useGetFurnituresQuery } from "../store/furnitureApi";
+import {
+  useGetFurnitureByNameQuery,
+  useGetFurnituresQuery,
+} from "../store/furnitureApi";
 import { useActions } from "../hooks/Actions";
 import close from "../../assets/closeImg.png";
 import "./Navigation.scss";
+import useDebounce from "../hooks/useDebounce";
 
 export const Navigation = () => {
   const { favorites } = useAppSelector((state) => state.furniture);
@@ -22,7 +26,18 @@ export const Navigation = () => {
   const { removeFavorite } = useActions();
   const { data } = useGetFurnituresQuery();
   const [SubTotal, setSubTotal] = useState<number>(0);
+  const [isSearch, setIsSearch] = useState(false);
+  const [handleChangeInput, setHandleChangeInput] = useState("");
+  const debounceInpValue = useDebounce(handleChangeInput, 1000);
+  const [showDropdown, setShowDropdown] = useState(false);
 
+  const {
+    data: furnitureItems,
+    error,
+    isLoading,
+  } = useGetFurnitureByNameQuery(debounceInpValue, {
+    skip: !handleChangeInput,
+  });
   const RemoveFav = (
     event: React.MouseEvent<HTMLButtonElement>,
     id: number
@@ -42,6 +57,20 @@ export const Navigation = () => {
   const calc = (price: number) => {
     return price - price * 0.2;
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!(event.target as HTMLElement).closest(".search-container")) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     setSubTotal(
@@ -145,6 +174,14 @@ export const Navigation = () => {
     };
   }, [modalIsOpen]);
 
+  const ActiveInp = () => {
+    setIsSearch(!isSearch);
+  };
+  const handleInp = (val: string) => {
+    setHandleChangeInput(val);
+    setShowDropdown(true);
+  };
+
   return (
     <>
       <header
@@ -170,11 +207,49 @@ export const Navigation = () => {
         </div>
         <div className="flex gap-10 justify-center items-center ">
           <Link to="/profile">
-            <img src={Profile} className="h-[40px]" alt="" />
+            <img src={Profile} className="h-[40px]" />
           </Link>
-          <a href="">
-            <img src={Search} className="h-[28px]" alt="" />
-          </a>
+          <button className="" onClick={ActiveInp}>
+            <img src={Search} className="h-[28px]" />
+          </button>
+          {isSearch ? (
+            <div className="relative ">
+              <input
+                className="search-container border-[2px] rounded-lg px-3"
+                type="text"
+                value={handleChangeInput}
+                onChange={(e) => handleInp(e.target.value)}
+                placeholder="search"
+              />
+
+              {showDropdown && handleChangeInput && (
+                <div className=" absolute flex  m-auto left-[-3rem] top-10 right-0 bottom-0  h-fit  bg-white border w-[500px] border-gray-300 max-h-[200px] overflow-y-auto shadow-lg rounded mt-2 z-40 gap-y-3 flex-col">
+                  {isLoading ? (
+                    <p>loading...</p>
+                  ) : error ? (
+                    <p>Server error</p>
+                  ) : (
+                    furnitureItems &&
+                    furnitureItems.length > 0 &&
+                    furnitureItems.map((item) => {
+                      return (
+                        <div className="flex gap-3">
+                          <img src={item.img} className="h-[70px]" />
+                          <Link
+                            to={`furniture/${item.id}`}
+                            className="p-2 hover:bg-gray-200 cursor-pointer w-full"
+                            key={item.id}
+                          >
+                            {item.name}
+                          </Link>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              )}
+            </div>
+          ) : null}
           <Link to="/compare">
             <img className="h-[30px]" src={compare} alt="" />
             {compareItems.length >= 1 ? (

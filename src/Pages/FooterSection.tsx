@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 
 export const FooterSection = () => {
+  const behavior = () => {
+    window.scrollTo({
+      top: 1,
+      behavior: "smooth",
+    });
+  };
   return (
     <>
       <hr className="w-[full] h-[2px] bg-[#3a3a3a] mb-[40px]" />
@@ -15,10 +21,18 @@ export const FooterSection = () => {
         </div>
         <div className="block2 flex flex-col gap-y-[40px]">
           <span className="text-[24px] font-bold">Links</span>
-          <Link to="/">Home</Link>
-          <Link to="/shop">Shop</Link>
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
+          <Link onClick={behavior} to="/">
+            Home
+          </Link>
+          <Link onClick={behavior} to="/shop">
+            Shop
+          </Link>
+          <Link onClick={behavior} to="/about">
+            About
+          </Link>
+          <Link onClick={behavior} to="/contact">
+            Contact
+          </Link>
         </div>
         <div className="block3 flex flex-col gap-y-[40px]">
           <span className="text-[24px] font-bold">Help</span>
