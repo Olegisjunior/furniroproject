@@ -139,7 +139,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
             {data?.size_photo?.map((item, index) => {
               return (
                 <>
-                  <img src={item} key={index} className="h-[400px]" />
+                  <img src={item} key={index} className="h-[500px]" />
                 </>
               );
             })}

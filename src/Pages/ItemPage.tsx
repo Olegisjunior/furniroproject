@@ -14,10 +14,18 @@ import { ItemPageSizeComponent } from "../component/ItemPageSizeComponent";
 import { ItemPageColorComponent } from "../component/ItemPageColorComponent";
 import { ProductInfo } from "../component/ProductInfo";
 import { RelatedProducts } from "../component/RelatedProducts";
+import { toast } from "react-toastify";
+import { useAppSelector } from "../hooks/redux";
 
-//refactoring code +-yes
-//loreminpsum homepage
-//notifications to add cart
+// refactoring code +-yes
+// loreminpsum homepage yes
+// notifications to add cart yes
+// home page -> Dining, Living, Bedroom pages yes
+// media sizes for all pages {
+// nav yes
+// home
+//
+//}
 // під учити reduce, some, find, filter!!!!!!!!!!!!!!
 
 export const ItemPage = () => {
@@ -27,6 +35,7 @@ export const ItemPage = () => {
   );
   const { addFavorite } = useActions();
   const { addCompare } = useActions();
+  const { compareItems } = useAppSelector((state) => state.compare);
   const {
     data: data2,
     isLoading: isLoading2,
@@ -57,7 +66,16 @@ export const ItemPage = () => {
 
   const AddToFav = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
     event.preventDefault();
-
+    toast.success("Added to cart!", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
     addFavorite({ id: id, quantity: counter });
   };
 
@@ -66,7 +84,30 @@ export const ItemPage = () => {
     id: number
   ) => {
     event.preventDefault();
-    addCompare(id);
+    if (compareItems.length < 4) {
+      addCompare(id);
+      toast.success("Added to compare!", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else if (compareItems.length === 4) {
+      toast.error("Maximum 4 item to compare!", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
 
   const increment = () => {

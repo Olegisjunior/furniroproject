@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Link } from "react-router-dom";
-import hat from "../../assets/hat.png";
-import { useListItemsQuery } from "../store/furnitureApi";
-import { ItemList } from "../component/ItemList";
-import { useEffect, useState } from "react";
-import { FiltersComponent } from "../component/FiltersComponent";
+import banner from "../../assets/banner3.jpg";
 import { Pagination } from "../component/Pagination";
+import { FiltersComponent } from "../component/FiltersComponent";
+import { useEffect, useState } from "react";
+import { useListItemsQuery } from "../store/furnitureApi";
+import { ItemList5 } from "../component/ItemList5";
 
-export const ShopPage = () => {
+export const BedroomPage = () => {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [sortBy, setSortBy] = useState<string>("");
@@ -17,12 +16,12 @@ export const ShopPage = () => {
     category: filter,
     sortBy: sortBy,
     order: order,
-    limit: 12,
+    limit: 22,
   });
   const [itemsLengthWF, setItemsLengthWF] = useState<number | null>(null);
 
   const ITEMS_LENGTH = 22;
-  const PER_PAGE = 12;
+  const PER_PAGE = 22;
 
   useEffect(() => {
     if (filter.length > 0) {
@@ -43,22 +42,21 @@ export const ShopPage = () => {
   return (
     <>
       <div className="relative flex flex-col ">
-        <p className="absolute  m-auto left-0 top-0 right-0 bottom-0 w-fit h-fit text-[48px] font-semibold  z-20">
-          Shop
+        <p className="absolute  m-auto left-0 top-0 right-0 bottom-0 w-fit h-fit  text-[48px] font-semibold  z-20">
+          Bedroom
         </p>
         <div className="z-20 flex absolute m-auto left-0 top-[80px] right-0 bottom-0 w-fit h-fit gap-5">
-          <Link to="/" className="font-semibold">
+          <Link to="/" className=" font-semibold   ">
             Home
           </Link>
           <span className="font-semibold">{`>`}</span>
-          <Link to="/shop" className="font-semibold">
-            Shop
+          <Link to="/bedroom" className="font-semibold">
+            Bedroom
           </Link>
         </div>
-
         <img
           className="w-full h-[320px] object-cover opacity-80 z-10"
-          src={hat}
+          src={banner}
           alt=""
         />
       </div>
@@ -73,7 +71,7 @@ export const ShopPage = () => {
         />
         <div className="max-w-[1800px] mx-auto my-14 flex items-center justify-center">
           {/* @ts-ignore */}
-          <ItemList data={data} error={error} isLoading={isLoading} />
+          <ItemList5 data={data} error={error} isLoading={isLoading} />
         </div>
         <Pagination
           pagination_numbers={pagination_numbers}

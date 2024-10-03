@@ -6,6 +6,7 @@ import { ItemList2 } from "../component/ItemList2";
 import { useState } from "react";
 import { HomePageSwiper } from "../component/HomePageSwiper";
 import { Collage } from "../component/Collage";
+import { Link } from "react-router-dom";
 
 export const HomePage = () => {
   const [visibleItems, setVisibleItems] = useState(4);
@@ -18,7 +19,7 @@ export const HomePage = () => {
     <main className="max-h-[500vh] h-fit">
       <section>
         <img src={image} className="w-full object-cover z-10 relative" alt="" />
-        <div className="bg-[#FFF3E3] w-[643px] gap-[7px] h-[443px] absolute top-[300px] right-[80px] z-30 px-[40px] pt-[60px] pb-[40px]">
+        <div className="bg-[#FFF3E3] w-[40rem] gap-[7px] h-[27rem]  absolute mx-auto top-[19rem] left-0 bottom-0 right-0 l:top-[19rem] l:left-0 l:bottom-0 l:right-[5rem] z-30 px-[40px] pt-[60px] pb-[40px]">
           <p className="font-semibold tracking-[3px] text-[#333333]">
             New Arrival
           </p>
@@ -26,50 +27,59 @@ export const HomePage = () => {
             Discover Our <br /> New Collection
           </p>
           <p className="text-[18px] font-semibold mt-[5px] text-[#333333] ">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta
-            molestiae, accusantium officiis est eum vitae?
+            Discover our new furniture collection: elegant designs, timeless
+            comfort, crafted for modern living spaces.
           </p>
-
-          <button className="bg-[#B88E2F] hover:bg-[#aa842b] mt-[40px] text-white w-[222px] h-[74px] font-bold">
-            BUY NOW
-          </button>
+          <Link to={"/shop"}>
+            <button className="bg-[#B88E2F] hover:bg-[#aa842b] mt-[40px] text-white w-[222px] h-[74px] font-bold">
+              BUY NOW
+            </button>
+          </Link>
         </div>
         <div className="container mx-auto flex flex-col justify-center items-center py-[40px]">
           <p className="text-[32px] text-[#333333] font-bold">
             Browse The Range
           </p>
           <p className="text-[#666666] text-[20px]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Explore our wide range of furniture, featuring stylish sofas,
+            elegant dining sets, and more. Find the perfect piece to suit your
+            home.
           </p>
         </div>
         <div className="container mx-auto flex justify-between items-center relative">
-          <div className="flex flex-col items-center justify-center">
-            <img
-              src={cartImage}
-              className="w-[460px] h-[520px] object-cover object-left rounded-xl"
-            />
-            <p className="text-[#333333] text-[24px] font-semibold mt-5">
-              Dining
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center">
-            <img
-              src={cartImage2}
-              className="w-[460px] h-[520px] object-cover rounded-xl"
-            />
-            <p className="text-[#333333] text-[24px] font-semibold mt-5">
-              Living
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center">
-            <img
-              src={cartImage3}
-              className="w-[460px] h-[520px] object-cover object-left rounded-xl"
-            />
-            <p className="text-[#333333] text-[24px] font-semibold mt-5">
-              Bedroom
-            </p>
-          </div>
+          <Link to={"/dining"}>
+            <div className="flex flex-col items-center justify-center">
+              <img
+                src={cartImage}
+                className="w-[460px] h-[520px] object-cover object-left rounded-xl"
+              />
+              <p className="text-[#333333] text-[24px] font-semibold mt-5">
+                Dining
+              </p>
+            </div>
+          </Link>
+          <Link to={"/living"}>
+            <div className="flex flex-col items-center justify-center">
+              <img
+                src={cartImage2}
+                className="w-[460px] h-[520px] object-cover rounded-xl"
+              />
+              <p className="text-[#333333] text-[24px] font-semibold mt-5">
+                Living
+              </p>
+            </div>
+          </Link>
+          <Link to={"/bedroom"}>
+            <div className="flex flex-col items-center justify-center">
+              <img
+                src={cartImage3}
+                className="w-[460px] h-[520px] object-cover object-left rounded-xl"
+              />
+              <p className="text-[#333333] text-[24px] font-semibold mt-5">
+                Bedroom
+              </p>
+            </div>
+          </Link>
         </div>
         <span className="text-[#3A3A3A] text-[40px] font-bold container mx-auto flex justify-center items-center my-10">
           Our Products

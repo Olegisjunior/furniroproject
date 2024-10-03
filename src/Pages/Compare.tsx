@@ -9,7 +9,7 @@ export const Compare = () => {
   const { data } = useGetFurnituresQuery();
 
   return (
-    <div className="">
+    <div className=" h-[200vh]">
       <div className="relative flex flex-col ">
         <p className="absolute  m-auto left-0 top-0 right-0 bottom-0 w-fit h-fit  text-[48px] font-semibold  z-20">
           Compare
@@ -47,7 +47,7 @@ export const Compare = () => {
           </div>
         </div>
         <div className="h-[90vh] flex justify-start items-start ">
-          <div className="flex min-w-[20%] text-[20px]  flex-col justify-center items-center gap-5 pt-5 pb-[115px] border-r-2 border-t-2 border-[#797979] border-opacity-15">
+          <div className="flex min-w-[20%] text-[20px]  flex-col justify-center mb-20 items-center gap-5 pt-5 pb-[205px] border-r-2 border-t-2 border-[#797979] border-opacity-15">
             <h1 className="font-bold text-2xl">Dimensions</h1>
             <span>Width</span>
             <span>Height</span>

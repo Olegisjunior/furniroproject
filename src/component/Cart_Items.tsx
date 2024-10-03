@@ -1,10 +1,12 @@
 import share from "../../assets/Vector_share.png";
 import compare from "../../assets/Vector_compare.png";
 import like from "../../assets/Vector_like.png";
+import likeRed from "../../assets/Vector_like_red.png";
 import { FC } from "react";
 import { useActions } from "../hooks/Actions";
 import { Link } from "react-router-dom";
-
+import { toast } from "react-toastify";
+import { useAppSelector } from "../hooks/redux";
 type Cart_Items_Props = {
   img: string;
   desc: string;
@@ -25,10 +27,22 @@ export const Cart_Items: FC<Cart_Items_Props> = ({
   const { addFavorite } = useActions();
   const { addCompare } = useActions();
   const { addLike } = useActions();
+  const { liked } = useAppSelector((state) => state.liked);
+  const { compareItems } = useAppSelector((state) => state.compare);
 
   const AddToFav = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
     event.preventDefault();
     addFavorite({ id: id, quantity: 1 });
+    toast.success("Added to cart!", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   const AddToComp = (
@@ -36,7 +50,30 @@ export const Cart_Items: FC<Cart_Items_Props> = ({
     id: number
   ) => {
     event.preventDefault();
-    addCompare(id);
+    if (compareItems.length < 4) {
+      addCompare(id);
+      toast.success("Added to compare!", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else if (compareItems.length === 4) {
+      toast.error("Maximum 4 item to compare!", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
 
   const AddToLike = (
@@ -45,6 +82,16 @@ export const Cart_Items: FC<Cart_Items_Props> = ({
   ) => {
     event?.preventDefault();
     addLike(id);
+    toast.success("Added to Liked!", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   const calc = (price: number) => {
@@ -83,7 +130,7 @@ export const Cart_Items: FC<Cart_Items_Props> = ({
               onClick={(e) => AddToLike(e, id)}
               className="text-white bg-none flex  items-center justify-center gap-1"
             >
-              <img src={like} /> Like
+              <img src={liked.includes(id) ? likeRed : like} /> Like
             </button>
           </div>
         </div>

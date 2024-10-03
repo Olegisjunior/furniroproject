@@ -2,6 +2,7 @@ import close from "../../assets/closeImg.png";
 import { useActions } from "../hooks/Actions";
 import { useAppSelector } from "../hooks/redux";
 import { IFurniture } from "../store/furnitureApi";
+import { toast } from "react-toastify";
 
 interface CompareItemsProps {
   data: IFurniture[] | undefined;
@@ -10,6 +11,23 @@ interface CompareItemsProps {
 export const CompareItems: React.FC<CompareItemsProps> = ({ data }) => {
   const { compareItems } = useAppSelector((state) => state.compare);
   const { removeCompare } = useActions();
+
+  const { addFavorite } = useActions();
+
+  const AddToFav = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
+    event.preventDefault();
+    toast.success("Added to cart!", {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+    addFavorite({ id: id, quantity: 1 });
+  };
 
   const handleClick = (id: number) => {
     removeCompare(id);
@@ -21,7 +39,7 @@ export const CompareItems: React.FC<CompareItemsProps> = ({ data }) => {
           .filter((b) => compareItems.includes(b.id))
           .map((item) => {
             return (
-              <div className="flex flex-col items-center gap-5 pb-5 pt-5 text-[20px] w-[100%] border-r-2 border-t-2 border-[#797979] border-opacity-15">
+              <div className="flex flex-col items-center gap-5 pb-20 pt-5 text-[20px] w-[100%] border-r-2 border-t-2 border-[#797979] border-opacity-15">
                 <p className="pt-[50px] truncate w-[290px] text-center">
                   {item.prod_info.Width || "-"}
                 </p>
@@ -50,7 +68,10 @@ export const CompareItems: React.FC<CompareItemsProps> = ({ data }) => {
                   {item.prod_info.Warranty || "-"}
                 </p>
                 <div className="flex pt-3 gap-x-20">
-                  <button className="bg-orange-400 p-3 text-xl font-medium ">
+                  <button
+                    onClick={(e) => AddToFav(e, item.id)}
+                    className="bg-orange-400 p-3 text-xl font-medium "
+                  >
                     Add to cart
                   </button>
                   <button onClick={() => handleClick(item.id)}>

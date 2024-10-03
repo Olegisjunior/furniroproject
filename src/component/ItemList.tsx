@@ -12,7 +12,7 @@ type PropsData = {
 
 export const ItemList: FC<PropsData> = ({ data, isLoading, error }) => {
   return (
-    <div className="grid w-[85%]  grid-cols-[repeat(auto-fit,minmax(300px,1fr))]   gap-x-10 gap-y-10  ">
+    <div className="grid mx-auto max-w-[85%] justify-center grid-cols-[repeat(auto-fill,minmax(300px,1fr))]    gap-x-10 gap-y-10  ">
       {error ? (
         <p className="text-red-700">Oh no, there was an error</p>
       ) : isLoading ? (

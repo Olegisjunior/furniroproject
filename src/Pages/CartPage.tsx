@@ -118,21 +118,15 @@ export const CartPage = () => {
   return (
     <>
       <div className="relative flex flex-col ">
-        <p className="absolute text-[48px] font-semibold left-[898px] top-[110px] z-20">
+        <p className="absolute  m-auto left-0 top-0 right-0 bottom-0 w-fit h-fit  text-[48px] font-semibold  z-20">
           Cart
         </p>
-        <div className="z-20">
-          <Link
-            to="/"
-            className="absolute font-semibold left-[900px] top-[170px]"
-          >
+        <div className="z-20 flex absolute m-auto left-0 top-[80px] right-0 bottom-0 w-fit h-fit gap-5">
+          <Link to="/" className=" font-semibold   ">
             Home
           </Link>
-          <span className="absolute left-[953px] font-semibold top-[170px]">{`>`}</span>
-          <Link
-            to="/cart"
-            className="absolute left-[970px] font-semibold top-[170px]"
-          >
+          <span className="font-semibold">{`>`}</span>
+          <Link to="/cart" className="font-semibold">
             Cart
           </Link>
         </div>
