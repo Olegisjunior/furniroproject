@@ -11,9 +11,27 @@ import { Checkout } from "./Pages/Checkout";
 import { Compare } from "./Pages/Compare";
 import { UserProfile } from "./Pages/UserProfile";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { DiningPage } from "./Pages/DiningPage";
+import { LivingPage } from "./Pages/LivingPage";
+import { BedroomPage } from "./Pages/BedroomPage";
+
 export const App = () => {
   return (
     <>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Navigation />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -25,6 +43,9 @@ export const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/compare" element={<Compare />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/dining" element={<DiningPage />} />
+        <Route path="/living" element={<LivingPage />} />
+        <Route path="/bedroom" element={<BedroomPage />} />
       </Routes>
       <FooterSection />
     </>

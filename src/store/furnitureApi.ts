@@ -57,19 +57,26 @@ export const furnitureApi = createApi({
     }),
     listItems: builder.query<
       ListResponse<IFurniture>,
-      { category?: string; page: number; sortBy?: string; order?: string }
+      {
+        category?: string;
+        page: number;
+        sortBy?: string;
+        order?: string;
+        limit: number;
+      }
     >({
       query: (filters) => {
-        const { page = 1, category, sortBy, order } = filters || {};
+        const { page = 1, category, sortBy, order, limit = 12 } = filters || {};
 
         const queryParams = new URLSearchParams({
           ...(page ? { page: page.toString() } : {}),
           ...(category ? { category } : {}),
           ...(sortBy ? { sortBy } : {}),
           ...(order ? { order } : {}),
+          ...(limit ? { limit: limit.toString() } : {}),
         });
 
-        return `furnitures?limit=10&${queryParams.toString()}`;
+        return `furnitures?${queryParams.toString()}`;
       },
     }),
   }),

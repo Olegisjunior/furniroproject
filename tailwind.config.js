@@ -6,6 +6,11 @@ export default {
       mont: ["Montserrat"],
       Poppins: ["Poppins"],
     },
+    screens: {
+      md: "1024px",
+      l: "1280px",
+      xl: "1440px",
+    },
     extend: {},
   },
   plugins: [],
