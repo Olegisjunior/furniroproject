@@ -36,6 +36,8 @@ export interface IFurniture {
   };
 }
 
+const apiUrl = import.meta.env.VITE_FURNIRO_API_URL;
+
 export interface ListResponse<T> {
   data: T;
 }
@@ -43,7 +45,7 @@ export interface ListResponse<T> {
 export const furnitureApi = createApi({
   reducerPath: "furnitureApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `https://${KEY}.mockapi.io`,
+    baseUrl: apiUrl,
   }),
   endpoints: (builder) => ({
     getFurnitureById: builder.query<IFurniture, number>({
