@@ -26,7 +26,7 @@ export const Cart_Items2: FC<Cart_Items_Props> = ({
 
   const AddToFav = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
     event.preventDefault();
-    addFavorite(id);
+    addFavorite({ id: id, quantity: 1 });
   };
 
   const calc = (price: number) => {
