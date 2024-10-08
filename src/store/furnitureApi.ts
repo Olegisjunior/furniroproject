@@ -43,7 +43,7 @@ export interface ListResponse<T> {
 export const furnitureApi = createApi({
   reducerPath: "furnitureApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://66cace3959f4350f064ff108.mockapi.io",
+    baseUrl: `https://${KEY}.mockapi.io`,
   }),
   endpoints: (builder) => ({
     getFurnitureById: builder.query<IFurniture, number>({
