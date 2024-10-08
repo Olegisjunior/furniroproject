@@ -17,9 +17,9 @@ export const ItemPageColorComponent: React.FC<ItemPageColorComponentProps> = ({
   return (
     <>
       {data?.colors ? (
-        <div className="Colors flex flex-col gap-3">
+        <div className="Colors flex flex-col gap-3 max-w-full mx-auto md:mx-0">
           <p className=" text-[#9f9f9f]">Color</p>
-          <div className="flex gap-5">
+          <div className="flex gap-5 ">
             {data?.colors?.map((color, index) => {
               return (
                 <button

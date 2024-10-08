@@ -66,10 +66,11 @@ export const CartPage = () => {
     return price - price * 0.2;
   };
 
-  const totalQuantity = quantity.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  let totalQuantity = 0;
+
+  if (data) {
+    totalQuantity = quantity.reduce((total, item) => total + item.quantity, 0);
+  }
 
   useEffect(() => {
     const totalPrice = quantity.reduce((total, item) => {
@@ -113,8 +114,6 @@ export const CartPage = () => {
     );
   };
 
-  // size -> checkData -> checkout
-
   return (
     <>
       <div className="relative flex flex-col ">
@@ -136,15 +135,15 @@ export const CartPage = () => {
           alt=""
         />
       </div>
-      <div className="h-[100vh] flex gap-x-10 container mx-auto my-10">
-        <div className="LeftSide w-[60%] ">
+      <div className="min-h-[100vh] h-fit flex flex-col md:flex md:flex-row gap-y-10 md:gap-y-0 md:gap-x-10 md:container md:mx-auto my-10">
+        <div className="LeftSide w-full md:w-[60%] ">
           <div className="flex justify-between items-center py-3 pl-5 pr-5">
             <h1 className="text-xl font-bold">Shopping Cart</h1>
             <h1 className="text-xl font-bold">{favorites.length} items</h1>
           </div>
           <div className="h-full ">
-            <div className="flex justify-around pr-16">
-              <div className="w-[290px]">
+            <div className="flex flex-col md:flex-row justify-center md:justify-around items-center md:pr-16 gap-2 md:gap-0">
+              <div className="md:w-[290px]">
                 <p>Product Details</p>
               </div>
               <p className=" ">Price</p>
@@ -168,7 +167,7 @@ export const CartPage = () => {
             />
           </div>
         </div>
-        <div className="RightSide w-[30%] bg-gray-100 h-fit">
+        <div className="RightSide w-full md:w-[30%] bg-gray-100 h-fit">
           <h1 className="text-2xl font-bold flex justify-center items-center my-5">
             Order Summary
           </h1>

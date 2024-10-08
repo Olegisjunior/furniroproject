@@ -41,9 +41,9 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
         </div>
 
         {isActive2 === 0 ? (
-          <p className="w-[1200px] text-[#797979]">{data?.desc}</p>
+          <p className="max-w-[1200px] text-[#797979]">{data?.desc}</p>
         ) : (
-          <div className="flex justify-around w-full">
+          <div className="flex flex-col gap-5 max-w-full mx-auto l:flex l:justify-around ">
             <div className="flex items-center gap-10">
               <table className="border-collapse text-[18px]">
                 <tbody>
@@ -138,9 +138,9 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
             </div>
             {data?.size_photo?.map((item, index) => {
               return (
-                <>
-                  <img src={item} key={index} className="h-[500px]" />
-                </>
+                <div>
+                  <img src={item} key={index} className="max-h-[500px]" />
+                </div>
               );
             })}
           </div>

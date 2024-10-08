@@ -60,7 +60,7 @@ export const DiningPage = () => {
           alt=""
         />
       </div>
-      <div className="h-[100vh]">
+      <div className="max-h-[500vh] h-fit">
         <FiltersComponent
           filter={filter}
           order={order}
@@ -69,7 +69,7 @@ export const DiningPage = () => {
           setSortBy={setSortBy}
           setOrder={setOrder}
         />
-        <div className="max-w-[1800px] mx-auto my-14 flex items-center justify-center">
+        <div className="max-w-[1800px] mx-auto my-14 flex items-center justify-center h-fit">
           {/* @ts-ignore */}
           <ItemList3 data={data} error={error} isLoading={isLoading} />
         </div>

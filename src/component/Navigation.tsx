@@ -117,6 +117,11 @@ export const Navigation = () => {
     setBurgerMenu(false);
   };
 
+  const closeSearchAndcloseBurger = () => {
+    setBurgerMenu(false);
+    setIsSearch(false);
+  };
+
   const FavItems = data
     ?.filter((item) => favorites.find((fav) => fav.id === item.id))
     .map((i) => {
@@ -124,10 +129,12 @@ export const Navigation = () => {
       const favoriteQuan = favoriteId ? favoriteId.quantity : 1;
       return (
         <ul key={i.name} className="">
-          <div className="flex justify-around items-center gap-5 mt-5">
+          <div className="flex justify-around items-center gap-5 mt-5 p-5">
             <img className="h-[90px] rounded-md" src={i.img} />
             <div className="flex flex-col justify-center items-center">
-              <p className="w-[240px] truncate font-semibold">{i.name}</p>
+              <p className="w-[150px] md:w-[240px] truncate font-semibold">
+                {i.name}
+              </p>
               <div className="flex gap-3">
                 <div className="flex justify-center items-center mx-5 text-[#B88E2F] text-[18px]  gap-x-6">
                   <span className=" text-[16px] text-[#000000]">
@@ -151,10 +158,12 @@ export const Navigation = () => {
     .map((i) => {
       return (
         <ul key={i.name} className="">
-          <div className="flex justify-around items-center gap-5 mt-5">
+          <div className="flex justify-around items-center gap-5 mt-5 p-5">
             <img className="h-[90px] rounded-md" src={i.img} />
             <div className="flex flex-col justify-center items-center">
-              <p className="w-[240px] truncate font-semibold">{i.name}</p>
+              <p className="w-[150px] md:w-[240px] truncate font-semibold">
+                {i.name}
+              </p>
               <div className="flex gap-3">
                 <div className="flex justify-center items-center mx-5 text-[#B88E2F] text-[18px]  gap-x-6">
                   <button onClick={closeModal2}>
@@ -325,7 +334,7 @@ export const Navigation = () => {
           >
             <aside
               onClick={(e) => e.stopPropagation()}
-              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[500px] w-fit max-h-[100%] h-full z-50"
+              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[300px] w-fit max-h-[100%] h-full z-50"
             >
               <nav className="flex flex-col justify-center items-center text-3xl pt-10 pb-2 gap-5">
                 <Link className="font-[500]" to="/" onClick={closeBurger}>
@@ -380,7 +389,7 @@ export const Navigation = () => {
                                     to={`furniture/${item.id}`}
                                     className="p-2 hover:bg-gray-200 cursor-pointer w-full"
                                     key={item.id}
-                                    onClick={closeBurger}
+                                    onClick={closeSearchAndcloseBurger}
                                   >
                                     {item.name}
                                   </Link>
@@ -429,7 +438,7 @@ export const Navigation = () => {
           >
             <aside
               onClick={(e) => e.stopPropagation()}
-              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[500px] w-fit max-h-[100%] min-h-[750px] z-50"
+              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[300px] w-fit max-h-[100%] min-h-[750px] z-50"
             >
               <h1 className="font-[700] text-2xl text-center pt-5">
                 Shopping Cart
@@ -463,7 +472,7 @@ export const Navigation = () => {
           >
             <aside
               onClick={(e) => e.stopPropagation()}
-              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[500px] w-fit max-h-[100%] min-h-[750px] z-50"
+              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[300px] w-fit max-h-[100%] min-h-[750px] z-50"
             >
               <h1 className="font-[700] text-2xl text-center pt-5">
                 Liked items

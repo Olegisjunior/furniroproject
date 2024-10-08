@@ -37,7 +37,7 @@ export const FiltersComponent: React.FC<FiltersComponentProps> = ({
   };
 
   return (
-    <div className="filters w-full h-[100px] bg-[#ecdcc8] relative  flex justify-around items-center">
+    <div className="filters w-full min-h-[100px] h-fit py-5 gap-2  bg-[#ecdcc8] relative flex-col flex md:flex-row justify-around items-center">
       <div className="Filters flex gap-5">
         <h1 className="font-semibold text-xl flex justify-center items-center gap-2 ">
           Category

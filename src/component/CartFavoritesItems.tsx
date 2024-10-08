@@ -112,7 +112,7 @@ export const CartFavoritesItems: React.FC<FavItemsProps> = ({
 
       return (
         <>
-          <div className="flex justify-around items-center">
+          <div className="flex justify-center flex-col gap-6 md:gap-0 md:flex-row md:justify-around items-center p-5">
             <Link to={`/furniture/${i.id}`} className="flex gap-3">
               <img src={ImageChange(i)} className="h-[100px] rounded-md" />
               <div className="flex flex-col justify-center items-center">
@@ -147,7 +147,9 @@ export const CartFavoritesItems: React.FC<FavItemsProps> = ({
                 })}
               </select>
             ) : (
-              <div className="w-12 h-5">One size</div>
+              <div className="md:flex md:items-center md:w-12 md:h-5">
+                One size
+              </div>
             )}
             <select
               className="w-[50px] h-[20px]"
