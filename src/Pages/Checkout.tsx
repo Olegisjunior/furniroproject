@@ -74,9 +74,9 @@ export const Checkout = () => {
         />
       </div>
 
-      <div className="h-fit flex gap-x-10 container mx-auto my-10">
+      <div className="h-fit flex flex-col md:flex-row md:gap-x-10 md:container md:mx-auto my-10">
         {checkoutState.items.length > 0 ? (
-          <div className="LeftSide w-[50%]">
+          <div className="LeftSide w-full md:w-[50%]">
             <CheckoutForm func={handleDataFromForm} />
           </div>
         ) : (
@@ -101,7 +101,7 @@ export const Checkout = () => {
           </div>
         )}
         {checkoutState.items.length > 0 ? (
-          <div className="RightSide w-[30%] bg-gray-100 h-fit">
+          <div className="RightSide w-full md:w-[40%] bg-gray-100 h-fit">
             <h1 className="text-2xl font-bold flex justify-center items-center my-5">
               Order Summary
             </h1>

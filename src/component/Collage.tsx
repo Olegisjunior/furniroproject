@@ -9,7 +9,7 @@ import collage8 from "../../assets/collage8.png";
 
 export const Collage = () => {
   return (
-    <div className="max-w-[1440px] relative h-[900px] my-5  mx-auto">
+    <div className="hidden l:block max-w-[1440px] relative h-[900px] my-5  mx-auto">
       <div className="container mx-auto flex flex-col justify-center items-center mt-[20px]">
         <p className="text-[#616161] text-[20px] font-semibold">
           Share your setup with

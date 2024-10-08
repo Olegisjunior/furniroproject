@@ -7,6 +7,7 @@ export default {
       Poppins: ["Poppins"],
     },
     screens: {
+      s: "400px",
       md: "1024px",
       l: "1280px",
       xl: "1440px",

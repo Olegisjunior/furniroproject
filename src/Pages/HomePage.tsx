@@ -16,10 +16,10 @@ export const HomePage = () => {
   };
 
   return (
-    <main className="max-h-[500vh] h-fit">
+    <main className="max-h-[800vh] h-fit">
       <section>
         <img src={image} className="w-full object-cover z-10 relative" alt="" />
-        <div className="bg-[#FFF3E3] w-[40rem] gap-[7px] h-[27rem]  absolute mx-auto top-[19rem] left-0 bottom-0 right-0 l:top-[19rem] l:left-0 l:bottom-0 l:right-[5rem] z-30 px-[40px] pt-[60px] pb-[40px]">
+        <div className="hidden bg-[#FFF3E3] w-[30rem] xl:w-[40rem] l:w-[35rem] md:flex-col md:flex gap-[7px] h-[24rem] md:h-[28rem] absolute mx-auto top-[6.5rem] left-0 bottom-0 right-0 xl:top-[19rem] xl:right-[5rem] xl:left-[55rem] l:left-[40rem] xl:bottom-0 xl:ml-0 xl:mr-0  z-30 px-[40px] xl:pt-[60px] xl:pb-[40px]">
           <p className="font-semibold tracking-[3px] text-[#333333]">
             New Arrival
           </p>
@@ -46,7 +46,7 @@ export const HomePage = () => {
             home.
           </p>
         </div>
-        <div className="container mx-auto flex justify-between items-center relative">
+        <div className="container mx-auto flex justify-between items-center flex-col md:flex-row">
           <Link to={"/dining"}>
             <div className="flex flex-col items-center justify-center">
               <img
@@ -84,7 +84,7 @@ export const HomePage = () => {
         <span className="text-[#3A3A3A] text-[40px] font-bold container mx-auto flex justify-center items-center my-10">
           Our Products
         </span>
-        <div className="mx-auto my-4 flex items-center justify-center">
+        <div className="mx-auto my-4 flex items-center justify-center h-fit">
           {visibleItems && <ItemList2 value={visibleItems} />}
         </div>
         <div className="container mx-auto h-[100px] flex items-center justify-center">
@@ -97,9 +97,9 @@ export const HomePage = () => {
             </button>
           )}
         </div>
-        <div className="swiper bg-[#FCF8F3] w-full h-[670px] flex gap-16">
+        <div className="hidden l:flex swiper bg-[#FCF8F3] w-full h-[670px]  gap-16">
           <div className=" py-[20px] px-[20px] ml-[100px] flex flex-col gap-5 w-[40%]">
-            <p className="font-bold text-[40px] text-[#3a3a3a] mt-[200px]">
+            <p className="font-bold text-[20px] l:text-[40px] text-[#3a3a3a] mt-[200px]">
               50+ Beautiful rooms <br />
               inspiration
             </p>
@@ -111,7 +111,7 @@ export const HomePage = () => {
               Explore More
             </button>
           </div>
-          <div className="w-[60%] py-10 px-10">
+          <div className=" w-[60%] py-10 px-10">
             <HomePageSwiper />
           </div>
         </div>

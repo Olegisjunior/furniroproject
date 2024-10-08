@@ -60,7 +60,7 @@ export const LivingPage = () => {
           alt=""
         />
       </div>
-      <div className="h-fit">
+      <div className="max-h-full h-fit">
         <FiltersComponent
           filter={filter}
           order={order}
@@ -69,7 +69,7 @@ export const LivingPage = () => {
           setSortBy={setSortBy}
           setOrder={setOrder}
         />
-        <div className="max-w-[1800px] mx-auto my-14 flex items-center justify-center">
+        <div className="max-w-[1800px] mx-auto my-14 flex items-center justify-center h-fit">
           {/* @ts-ignore */}
           <ItemList4 data={data} error={error} isLoading={isLoading} />
         </div>

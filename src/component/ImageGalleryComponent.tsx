@@ -41,7 +41,7 @@ export const ImageGalleryComponent: React.FC<ImageGalleryComponentProps> = ({
   }, [isColor, data]);
 
   return (
-    <div className="gallery flex flex-col gap-5">
+    <div className="gallery flex flex-col gap-5 w-full h-full">
       <ImageGallery
         items={images}
         showNav={false}

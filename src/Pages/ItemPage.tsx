@@ -17,15 +17,6 @@ import { RelatedProducts } from "../component/RelatedProducts";
 import { toast } from "react-toastify";
 import { useAppSelector } from "../hooks/redux";
 
-// refactoring code +-yes
-// loreminpsum homepage yes
-// notifications to add cart yes
-// home page -> Dining, Living, Bedroom pages yes
-// media sizes for all pages {
-// nav yes
-// home
-//
-//}
 // під учити reduce, some, find, filter!!!!!!!!!!!!!!
 
 export const ItemPage = () => {
@@ -127,7 +118,7 @@ export const ItemPage = () => {
   return (
     <>
       <div
-        className="w-full h-[100px] bg-[#F9F1E7] flex justify-start items-center gap-6 
+        className="w-full min-h-[100px] h-fit bg-[#F9F1E7] flex  flex-col md:flex-row justify-start items-center md:gap-6 
       pl-[50px]"
       >
         <Link to="/" className="font-semibold text-[#9F9F9F]">
@@ -144,12 +135,12 @@ export const ItemPage = () => {
       <div
         className={`min-h-[64vh] h-fit container mx-auto flex flex-col pt-10 mr-[200px]`}
       >
-        <div className="flex gap-x-[150px]">
-          <div className="flex gap-5  w-[50%]">
+        <div className=" max-w-[1440px]  flex flex-col md:flex md:flex-row md:gap-x-[150px]">
+          <div className="flex gap-5  md:max-w-[60%] w-full">
             <ImageGalleryComponent data={data} isColor={isColor} />
           </div>
 
-          <div className="RightSide flex flex-col  w-[50%] gap-y-10">
+          <div className="RightSide flex flex-col md:w-[40%] w-full gap-y-10">
             <p className="font-bold text-xl">{data?.name}</p>
             <p className="font-bold text-2xl text-[#000000]">
               {data?.discount ? calc(data.price) : data?.price}₴
@@ -170,7 +161,7 @@ export const ItemPage = () => {
               <div className="h-[30px] w-[1px] bg-[#9f9f9f]"></div>
               <p className="text-[#9f9f9f]">5 Customer review</p>
             </div>
-            <p className="w-[700px] text-[14px]">{data?.desc}</p>
+            <p className="max-w-[700px] text-[14px]">{data?.desc}</p>
             <ItemPageSizeComponent
               data={data}
               isActive={isActive}
@@ -178,14 +169,14 @@ export const ItemPage = () => {
               setSize={setSize}
             />
             <ItemPageColorComponent data={data} setIsColor={setIsColor} />
-            <div className="flex gap-10">
-              <div className="w-[125px] h-[65px] text-[20px] flex justify-center items-center  border-black rounded-md gap-8">
+            <div className="flex mx-auto flex-col max-w-full md:flex-row gap-10 ">
+              <div className="w-[125px] h-[65px] text-[20px] flex justify-center items-center top-0 bottom-0 right-0 left-0 mx-auto  rounded-md gap-8">
                 <button onClick={decrement}>-</button>
                 <p>{counter}</p>
                 <button onClick={increment}>+</button>
               </div>
               {data && (
-                <>
+                <div className="flex flex-col md:flex-row gap-5">
                   <button
                     onClick={(e) => AddToFav(e, data.id)}
                     className="w-[215px] h-[65px] flex justify-center items-center border-solid border-[2px] border-black rounded-md gap-8"
@@ -198,7 +189,7 @@ export const ItemPage = () => {
                   >
                     Add To Compare
                   </button>
-                </>
+                </div>
               )}
             </div>
           </div>

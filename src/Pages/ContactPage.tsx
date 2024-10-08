@@ -27,7 +27,7 @@ export const ContactPage = () => {
           alt=""
         />
       </div>
-      <div className="container mx-auto w-full h-[100vh] flex flex-col ">
+      <div className="container mx-auto w-full max-h-full flex flex-col ">
         <div className="px-10 py-10">
           <h1 className="text-3xl font-bold flex justify-center">
             Get In Touch With Us
@@ -39,9 +39,9 @@ export const ContactPage = () => {
             Hesitate!
           </p>
         </div>
-        <div className="2in1 flex gap-10">
+        <div className="2in1 max-w-full mx-auto flex-col flex md:flex-row gap-10 ">
           <div className="left  w-full flex flex-col gap-5 px-10 py-10 justify-center items-end">
-            <div className="flex gap-2">
+            <div className="flex mx-auto gap-2">
               <img src={address} className="h-[30px]" />
               <p>
                 Address

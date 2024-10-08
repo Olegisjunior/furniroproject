@@ -15,6 +15,7 @@ export const HomePageSwiper = () => {
         slidesPerView={2}
         navigation
         pagination={{ clickable: true }}
+        className="object-cover"
       >
         <SwiperSlide>
           {({ isActive }) => (
@@ -40,24 +41,6 @@ export const HomePageSwiper = () => {
                 </div>
               </div>
             </div>
-          )}
-        </SwiperSlide>
-        <SwiperSlide>
-          {({ isActive }) => (
-            <img
-              src={cardImg3}
-              className={isActive ? `h-[600px]` : `h-[500px]`}
-              alt=""
-            />
-          )}
-        </SwiperSlide>
-        <SwiperSlide>
-          {({ isActive }) => (
-            <img
-              src={cardImg2}
-              className={isActive ? `h-[600px]` : `h-[500px]`}
-              alt=""
-            />
           )}
         </SwiperSlide>
         <SwiperSlide>
