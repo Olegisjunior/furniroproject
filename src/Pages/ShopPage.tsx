@@ -84,3 +84,5 @@ export const ShopPage = () => {
     </>
   );
 };
+
+export default ShopPage;
