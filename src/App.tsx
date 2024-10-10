@@ -1,21 +1,22 @@
 import { Route, Routes } from "react-router-dom";
-import { HomePage } from "./Pages/HomePage";
-import { ShopPage } from "./Pages/ShopPage";
-import { AboutPage } from "./Pages/AboutPage";
-import { ContactPage } from "./Pages/ContactPage";
 import { Navigation } from "./component/Navigation";
-import { ItemPage } from "./Pages/ItemPage";
+import { HomePage } from "./Pages/HomePage";
 import { FooterSection } from "./Pages/FooterSection";
-import { CartPage } from "./Pages/CartPage";
-import { Checkout } from "./Pages/Checkout";
-import { Compare } from "./Pages/Compare";
-import { UserProfile } from "./Pages/UserProfile";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { DiningPage } from "./Pages/DiningPage";
-import { LivingPage } from "./Pages/LivingPage";
-import { BedroomPage } from "./Pages/BedroomPage";
+import React from "react";
+
+const ShopPage = React.lazy(() => import("./Pages/ShopPage"));
+const AboutPage = React.lazy(() => import("./Pages/AboutPage"));
+const ContactPage = React.lazy(() => import("./Pages/ContactPage"));
+const ItemPage = React.lazy(() => import("./Pages/ItemPage"));
+const CartPage = React.lazy(() => import("./Pages/CartPage"));
+const Checkout = React.lazy(() => import("./Pages/Checkout"));
+const Compare = React.lazy(() => import("./Pages/Compare"));
+const UserProfile = React.lazy(() => import("./Pages/UserProfile"));
+const DiningPage = React.lazy(() => import("./Pages/DiningPage"));
+const LivingPage = React.lazy(() => import("./Pages/LivingPage"));
+const BedroomPage = React.lazy(() => import("./Pages/BedroomPage"));
 
 export const App = () => {
   return (

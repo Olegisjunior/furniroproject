@@ -79,3 +79,5 @@ export const AboutPage = () => {
     </>
   );
 };
+
+export default AboutPage;
