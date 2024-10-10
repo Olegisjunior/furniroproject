@@ -127,6 +127,7 @@ export const CartFavoritesItems: React.FC<FavItemsProps> = ({
               type="number"
               defaultValue={favorites.find((f) => f.id === i.id)?.quantity || 1}
               min={1}
+              max={20}
               onChange={(event) => handleChange(event.target.value, i.id)}
               className="w-[3rem] h-[1rem] text-center  outline-none py-3 border border-solid rounded-xl"
             />

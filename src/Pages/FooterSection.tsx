@@ -10,7 +10,7 @@ export const FooterSection = () => {
   return (
     <>
       <hr className="w-[full] h-[2px] bg-[#3a3a3a] mb-[40px]" />
-      <footer className="min-h-[320px] h-[60vh] pb-20 gap-y-5 max-w-full  flex flex-col justify-center md:flex-row md:justify-around   ">
+      <footer className="min-h-[320px] h-fit pb-20 gap-y-5 max-w-full  flex flex-col justify-center md:flex-row md:justify-around   ">
         <div className="block1 flex flex-col md:gap-y-[100px] gap-y-[20px]">
           <span className="text-[24px] font-bold">Furniro.</span>
           <p>
@@ -35,10 +35,18 @@ export const FooterSection = () => {
           </Link>
         </div>
         <div className="block3 flex flex-col md:gap-y-[40px] gap-y-[10px]">
-          <span className="text-[24px] font-bold">Help</span>
-          <p>Payment Options</p>
-          <p>Returns</p>
-          <p>Privacy Policies</p>
+          <Link onClick={behavior} to="/help" className="text-[24px] font-bold">
+            Help
+          </Link>
+          <Link onClick={behavior} to="/help">
+            Payment Options
+          </Link>
+          <Link onClick={behavior} to="/help">
+            Returns
+          </Link>
+          <Link onClick={behavior} to="/help">
+            Privacy Policies
+          </Link>
         </div>
       </footer>
     </>

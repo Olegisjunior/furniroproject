@@ -18,6 +18,7 @@ const UserProfile = React.lazy(() => import("./Pages/UserProfile"));
 const DiningPage = React.lazy(() => import("./Pages/DiningPage"));
 const LivingPage = React.lazy(() => import("./Pages/LivingPage"));
 const BedroomPage = React.lazy(() => import("./Pages/BedroomPage"));
+const HelpPage = React.lazy(() => import("./Pages/HelpPage"));
 
 export const App = () => {
   return (
@@ -64,6 +65,7 @@ export const App = () => {
           <Route path="/dining" element={<DiningPage />} />
           <Route path="/living" element={<LivingPage />} />
           <Route path="/bedroom" element={<BedroomPage />} />
+          <Route path="/help" element={<HelpPage />} />
         </Routes>
       </Suspense>
       <FooterSection />
