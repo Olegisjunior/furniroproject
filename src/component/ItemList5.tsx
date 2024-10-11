@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { FC } from "react";
 import { IFurniture } from "../store/furnitureApi";
 import { Cart_Items } from "./Cart_Items";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
