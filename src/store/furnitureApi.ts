@@ -84,8 +84,6 @@ export const furnitureApi = createApi({
   }),
 });
 
-// sortBy=name&order=desc
-
 export const {
   useGetFurnitureByIdQuery,
   useGetFurnituresQuery,
