@@ -12,9 +12,9 @@ type PropsData = {
 
 export const ItemList3: FC<PropsData> = React.memo(
   ({ data, isLoading, error }) => {
-    const filteredData = useMemo(() => {
-      return data ? data.filter((it) => it.id == 3 || it.id == 14) : [];
-    }, []);
+    const filteredData = data
+      ? data.filter((it) => it.id == 3 || it.id == 14)
+      : [];
 
     return (
       <div
