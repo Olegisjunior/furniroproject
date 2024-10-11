@@ -23,9 +23,10 @@ export const Pagination: React.FC<PaginationProps> = ({
         onClick={() => handlePageClick(pagination_numbers.slice(0)[0])}
       >{`<`}</button>
       {pagination_numbers &&
-        pagination_numbers.map((page_number) => {
+        pagination_numbers.map((page_number, index) => {
           return (
             <button
+              key={index}
               onClick={() => handlePageClick(page_number)}
               className={`${page === page_number && `text-gray-500`} `}
             >

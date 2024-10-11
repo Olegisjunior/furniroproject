@@ -82,3 +82,5 @@ export const BedroomPage = () => {
     </>
   );
 };
+
+export default BedroomPage;

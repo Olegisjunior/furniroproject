@@ -82,3 +82,5 @@ export const DiningPage = () => {
     </>
   );
 };
+
+export default DiningPage;

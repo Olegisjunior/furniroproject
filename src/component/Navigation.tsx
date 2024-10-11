@@ -438,7 +438,7 @@ export const Navigation = () => {
           >
             <aside
               onClick={(e) => e.stopPropagation()}
-              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[300px] w-fit max-h-[100%] min-h-[750px] z-50"
+              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[450px] w-fit max-h-[100%] min-h-[750px] z-50"
             >
               <h1 className="font-[700] text-2xl text-center pt-5">
                 Shopping Cart
@@ -472,7 +472,7 @@ export const Navigation = () => {
           >
             <aside
               onClick={(e) => e.stopPropagation()}
-              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[300px] w-fit max-h-[100%] min-h-[750px] z-50"
+              className="flex flex-col fixed top-[0px] right-[0px] bg-white min-w-[450px] w-fit max-h-[100%] min-h-[750px] z-50"
             >
               <h1 className="font-[700] text-2xl text-center pt-5">
                 Liked items

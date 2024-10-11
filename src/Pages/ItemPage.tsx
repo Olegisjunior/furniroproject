@@ -17,6 +17,7 @@ import { RelatedProducts } from "../component/RelatedProducts";
 import { toast } from "react-toastify";
 import { useAppSelector } from "../hooks/redux";
 
+//
 // під учити reduce, some, find, filter!!!!!!!!!!!!!!
 
 export const ItemPage = () => {
@@ -210,3 +211,5 @@ export const ItemPage = () => {
     </>
   );
 };
+
+export default ItemPage;

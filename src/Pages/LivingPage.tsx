@@ -82,3 +82,5 @@ export const LivingPage = () => {
     </>
   );
 };
+
+export default LivingPage;

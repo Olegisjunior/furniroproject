@@ -62,3 +62,5 @@ export const Compare = () => {
     </div>
   );
 };
+
+export default Compare;

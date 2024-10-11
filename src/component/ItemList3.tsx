@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { IFurniture } from "../store/furnitureApi";
 import { Cart_Items } from "./Cart_Items";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -10,20 +10,23 @@ type PropsData = {
   isLoading: boolean;
 };
 
-export const ItemList3: FC<PropsData> = ({ data, isLoading, error }) => {
-  return (
-    <div
-      className={`grid mx-auto max-w-[85%] justify-center grid-cols-[repeat(auto-fill,minmax(300px,1fr))]  gap-x-10 gap-y-10  `}
-    >
-      {error ? (
-        <p className="text-red-700">Oh no, there was an error</p>
-      ) : isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        data &&
-        data
-          .filter((it) => it.id == 3 || it.id == 14)
-          .map((item: IFurniture) => {
+export const ItemList3: FC<PropsData> = React.memo(
+  ({ data, isLoading, error }) => {
+    const filteredData = useMemo(() => {
+      return data ? data.filter((it) => it.id == 3 || it.id == 14) : [];
+    }, []);
+
+    return (
+      <div
+        className={`grid mx-auto max-w-[85%] justify-center grid-cols-[repeat(auto-fill,minmax(300px,1fr))]  gap-x-10 gap-y-10  `}
+      >
+        {error ? (
+          <p className="text-red-700">Oh no, there was an error</p>
+        ) : isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          filteredData &&
+          filteredData.map((item: IFurniture) => {
             return (
               <Cart_Items
                 img={item.img}
@@ -36,7 +39,8 @@ export const ItemList3: FC<PropsData> = ({ data, isLoading, error }) => {
               />
             );
           })
-      )}
-    </div>
-  );
-};
+        )}
+      </div>
+    );
+  }
+);
