@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { FC } from "react";
 import { IFurniture } from "../store/furnitureApi";
 import { Cart_Items } from "./Cart_Items";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -12,24 +12,21 @@ type PropsData = {
 
 export const ItemList4: FC<PropsData> = React.memo(
   ({ data, isLoading, error }) => {
-    const filteredData = useMemo(() => {
-      return data
-        ? data.filter(
-            (it) =>
-              it.id == 1 ||
-              it.id == 2 ||
-              it.id == 7 ||
-              it.id == 8 ||
-              it.id == 9 ||
-              it.id == 12 ||
-              it.id == 13 ||
-              it.id == 18 ||
-              it.id == 19 ||
-              it.id == 20
-          )
-        : [];
-    }, []);
-
+    const filteredData = data
+      ? data.filter(
+          (it) =>
+            it.id == 1 ||
+            it.id == 2 ||
+            it.id == 7 ||
+            it.id == 8 ||
+            it.id == 9 ||
+            it.id == 12 ||
+            it.id == 13 ||
+            it.id == 18 ||
+            it.id == 19 ||
+            it.id == 20
+        )
+      : [];
     return (
       <div
         className={`grid mx-auto max-w-[85%] justify-center grid-cols-[repeat(auto-fill,minmax(300px,1fr))]  gap-x-10 gap-y-10  `}
@@ -39,7 +36,7 @@ export const ItemList4: FC<PropsData> = React.memo(
         ) : isLoading ? (
           <p>Loading...</p>
         ) : (
-          filteredData &&
+          data &&
           filteredData.map((item: IFurniture) => {
             return (
               <Cart_Items

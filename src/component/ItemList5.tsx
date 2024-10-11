@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { FC } from "react";
 import { IFurniture } from "../store/furnitureApi";
 import { Cart_Items } from "./Cart_Items";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
@@ -12,21 +12,19 @@ type PropsData = {
 
 export const ItemList5: FC<PropsData> = React.memo(
   ({ data, isLoading, error }) => {
-    const filteredData = useMemo(() => {
-      return data
-        ? data.filter(
-            (it) =>
-              it.id == 5 ||
-              it.id == 6 ||
-              it.id == 10 ||
-              it.id == 11 ||
-              it.id == 16 ||
-              it.id == 17 ||
-              it.id == 21 ||
-              it.id == 22
-          )
-        : [];
-    }, []);
+    const filteredData = data
+      ? data.filter(
+          (it) =>
+            it.id == 5 ||
+            it.id == 6 ||
+            it.id == 10 ||
+            it.id == 11 ||
+            it.id == 16 ||
+            it.id == 17 ||
+            it.id == 21 ||
+            it.id == 22
+        )
+      : [];
 
     return (
       <div
